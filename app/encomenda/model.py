@@ -1,23 +1,24 @@
 from app.extensions import db
 from app.model import BaseModel
-from flask import Blueprint
-
-encomenda_api = Blueprint('encomenda_api', __name__)
 
 class Encomenda(BaseModel):
     __tablename__ = 'encomenda'
 
     id = db.Column(db.Integer, primary_key=True)
+    numero = db.Column(db.Integer, unique=True)
     categoria = db.Column(db.String(30))
-    solicitante = db.Column(db.String(30))
+    cliente = db.Column(db.String(30))
+    data = db.Column(db.String(20))
     realizada = db.Column(db.String(1))
-    produto = db.relationship('produto', secondary='encomendas_e_produtos', backref='produtos_das_entregas')
+    # produto = db.relationship('produto', secondary='encomendas_e_produtos', backref='produtos_das_entregas')
 
     def json(self):
         return {
             'id': self.id,
+            'numero': self.numero,
             'categoria': self.categoria,
-            'solicitante': self.solicitante,
+            'cliente': self.cliente,
+            'data': self.data,
             'realizada': self.realizada
         }
 

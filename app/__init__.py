@@ -1,10 +1,10 @@
 from flask import Flask
 from .config import Config
 from .extensions import db, migrate
-from app.encomenda.model import encomenda_api
-from app.funcionario.model import funcionario_api
-from app.local.model import local_api
-from app.produto.model import produto_api
+from app.encomenda.routes import encomenda_api
+from app.funcionario.routes import funcionario_api
+from app.local.routes import local_api
+from app.produto.routes import produto_api
 
 def create_app():
     app = Flask(__name__)
