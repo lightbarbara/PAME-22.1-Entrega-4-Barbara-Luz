@@ -10,6 +10,7 @@ class Encomenda(BaseModel):
     cliente = db.Column(db.String(30))
     data = db.Column(db.String(20))
     realizada = db.Column(db.String(1))
+    
     # produto = db.relationship('produto', secondary='encomendas_e_produtos', backref='produtos_das_entregas')
 
     def json(self):
