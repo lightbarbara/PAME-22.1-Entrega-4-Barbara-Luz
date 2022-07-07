@@ -25,7 +25,7 @@ class ClienteCreate(MethodView): # /registro
             if cliente:
                 return {'code_status': 'Dados inválidos, cliente já cadastrado'}, 400
             
-            cliente = Cliente()
+            cliente = Cliente(nome=nome, email=email, senha=senha, endereco=endereco)
             cliente.save()
 
             mensagem = Message(sender='barbaraluz@eq.ufrj.br', recipients = [email],
