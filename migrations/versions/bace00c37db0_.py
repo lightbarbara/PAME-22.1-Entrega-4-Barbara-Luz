@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6f5874a81902
+Revision ID: bace00c37db0
 Revises: 
-Create Date: 2022-07-07 01:28:04.087574
+Create Date: 2022-07-07 14:41:09.885728
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6f5874a81902'
+revision = 'bace00c37db0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,37 +29,37 @@ def upgrade():
     )
     op.create_table('encomenda',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('numero', sa.Integer(), nullable=True),
+    sa.Column('numero', sa.Integer(), nullable=False),
     sa.Column('categoria', sa.String(length=30), nullable=True),
     sa.Column('data', sa.String(length=20), nullable=True),
-    sa.Column('realizada', sa.String(length=1), nullable=True),
+    sa.Column('realizada', sa.String(length=1), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('numero')
     )
     op.create_table('funcionario',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('email', sa.String(length=100), nullable=True),
-    sa.Column('senha', sa.String(length=100), nullable=True),
-    sa.Column('cargo', sa.String(length=30), nullable=True),
-    sa.Column('cadastrado', sa.String(length=1), nullable=True),
+    sa.Column('email', sa.String(length=100), nullable=False),
+    sa.Column('senha', sa.String(length=100), nullable=False),
+    sa.Column('cargo', sa.String(length=30), nullable=False),
+    sa.Column('cadastrado', sa.String(length=1), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
     op.create_table('loja',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('espaco', sa.String(length=100), nullable=True),
+    sa.Column('espaco', sa.String(length=100), nullable=False),
     sa.Column('area', sa.Float(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('espaco')
     )
     op.create_table('produto',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('nome', sa.String(length=100), nullable=True),
-    sa.Column('preco', sa.Float(), nullable=True),
+    sa.Column('nome', sa.String(length=100), nullable=False),
+    sa.Column('preco', sa.Float(), nullable=False),
     sa.Column('marca', sa.String(length=30), nullable=True),
     sa.Column('tipo', sa.String(length=30), nullable=True),
     sa.Column('demanda', sa.Integer(), nullable=True),
-    sa.Column('quantidade', sa.Integer(), nullable=True),
+    sa.Column('quantidade', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('nome')
     )
