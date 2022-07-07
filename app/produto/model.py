@@ -5,12 +5,12 @@ class Produto(BaseModel):
     __tablename__ = 'produto'
 
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), unique=True, nullable=True)
-    preco = db.Column(db.Float, nullable=True)
+    nome = db.Column(db.String(100), unique=True, nullable=False)
+    preco = db.Column(db.Float, nullable=False)
     marca = db.Column(db.String(30))
     tipo = db.Column(db.String(30))
     demanda = db.Column(db.Integer)
-    quantidade = db.Column(db.Integer, nullable=True)
+    quantidade = db.Column(db.Integer, nullable=False)
 
     # local = db.Column(db.Integer, db.ForeignKey('loja.id'))
 

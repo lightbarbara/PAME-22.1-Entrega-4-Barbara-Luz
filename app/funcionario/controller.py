@@ -88,3 +88,6 @@ class FuncionarioDetails(MethodView):
         funcionario.delete(funcionario)
 
         return funcionario.json()
+
+# class Login(MethodView):
+    

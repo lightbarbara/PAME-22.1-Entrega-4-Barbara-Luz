@@ -5,10 +5,10 @@ class Cliente(BaseModel):
     __tablename__ = 'cliente'
 
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(50), nullable=True)
-    email = db.Column(db.String(50), unique=True, nullable=True)
-    senha = db.Column(db.String(100), nullable=True)
-    endereco = db.Column(db.String(100), nullable=True)
+    nome = db.Column(db.String(50))
+    email = db.Column(db.String(50), unique=True)
+    senha = db.Column(db.String(100))
+    endereco = db.Column(db.String(100))
 
     # encomenda = db.relationship('encomenda', backref='cliente')
 

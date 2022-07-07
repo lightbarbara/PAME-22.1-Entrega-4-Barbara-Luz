@@ -5,10 +5,10 @@ class Funcionario(BaseModel):
     __tablename__ = 'funcionario'
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True, nullable=True)
-    senha = db.Column(db.String(100), nullable=True)
-    cargo = db.Column(db.String(30), nullable=True)
-    cadastrado = db.Column(db.String(1), nullable=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    senha = db.Column(db.String(100), nullable=False)
+    cargo = db.Column(db.String(30), nullable=False)
+    cadastrado = db.Column(db.String(1), nullable=False)
 
     # local = db.Column(db.Integer, db.ForeignKey('loja.id'))
 

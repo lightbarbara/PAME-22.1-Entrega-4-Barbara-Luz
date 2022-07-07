@@ -5,7 +5,7 @@ class Loja(BaseModel):
     __tablename__ = 'loja'
 
     id = db.Column(db.Integer, primary_key=True)
-    espaco = db.Column(db.String(100), unique=True, nullable=True)
+    espaco = db.Column(db.String(100), unique=True, nullable=False)
     area = db.Column(db.Float)
 
     # produtos = db.relationship('produto', backref='loja')

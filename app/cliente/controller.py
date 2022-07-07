@@ -28,7 +28,7 @@ class ClienteCreate(MethodView): # /registro
             cliente = Cliente()
             cliente.save()
 
-            mensagem = Message(sender='papelaria_da_carol@gmail.com', recipients = [email],
+            mensagem = Message(sender='barbaraluz@eq.ufrj.br', recipients = [email],
             subject='Cadastro completo', html = render_template('email.html', nome=nome))
             mail.send(mensagem)
 
@@ -95,3 +95,12 @@ class ClienteDetails(MethodView):
         cliente.delete(cliente)
 
         return cliente.json()
+
+class Login(MethodView):
+    def post(self):
+        body = request.json
+
+        email = body.get('email')
+        senha = body.get('senha')
+
+        cliente = Cliente.query.filter_by(email=email).first()
