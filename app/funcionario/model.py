@@ -5,16 +5,17 @@ class Funcionario(BaseModel):
     __tablename__ = 'funcionario'
 
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), unique=True)
-    cargo = db.Column(db.String(30))
-    cadastrado = db.Column(db.String(1))
+    email = db.Column(db.String(100), unique=True, nullable=True)
+    senha = db.Column(db.String(100), nullable=True)
+    cargo = db.Column(db.String(30), nullable=True)
+    cadastrado = db.Column(db.String(1), nullable=True)
 
-    # local = db.Column(db.Integer, db.ForeignKey('local.id'))
+    # local = db.Column(db.Integer, db.ForeignKey('loja.id'))
 
     def json(self):
         return {
             'id': self.id,
-            'nome': self.nome,
+            'email': self.email,
             'cargo': self.cargo,
             'cadastrado': self.cadastrado
         }

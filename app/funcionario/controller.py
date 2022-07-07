@@ -1,25 +1,29 @@
 from app.funcionario.model import Funcionario
 from flask import request, jsonify
 from flask.views import MethodView
+import bcrypt
 
 class FuncionarioCreate(MethodView): # /registro
     def post(self):
         body = request.json # pegando do front
 
         id = body.get('id')
-        nome = body.get('nome')
+        email = body.get('email')
+        senha = body.get('senha')
+        senha = bcrypt.hashpw(senha.encode(), bcrypt.gensalt()).decode()
         cargo = body.get('cargo')
         cadastrado = body.get('cadastrado')
 
-        if isinstance(nome, str) and \
-            isinstance(cargo, str) and \
-                isinstance(cadastrado, str):
-            funcionario = Funcionario.query.filter_by(nome=nome).first()
+        if isinstance(email, str) and \
+            isinstance(senha, str) and \
+                isinstance(cargo, str) and \
+                    isinstance(cadastrado, str):
+            funcionario = Funcionario.query.filter_by(email=email).first()
 
             if funcionario:
                 return {'code_status': 'Dados inválidos, funcionário já cadastrado'}, 400
             
-            funcionario = Funcionario(nome=nome, cargo=cargo, cadastrado=cadastrado)
+            funcionario = Funcionario(email=email, senha=senha, cargo=cargo, cadastrado=cadastrado)
             funcionario.save()
             return funcionario.json(), 200
     
@@ -36,14 +40,17 @@ class FuncionarioDetails(MethodView):
         body = request.json()
         funcionario = Funcionario.query.get_or_404(id)
 
-        nome = body.get('nome')
+        email = body.get('email')
+        senha = body.get('senha')
         cargo = body.get('cargo')
         cadastrado = body.get('cadastrado')
 
-        if isinstance(nome, str) and \
-            isinstance(cargo, str) and \
-                isinstance(cadastrado, str):
-            funcionario.nome = nome
+        if isinstance(email, str) and \
+            isinstance(senha, str) and \
+                isinstance(cargo, str) and \
+                    isinstance(cadastrado, str):
+            funcionario.email = email
+            funcionario.senha = senha
             funcionario.cargo = cargo
             funcionario.cadastrado = cadastrado
 
@@ -58,14 +65,17 @@ class FuncionarioDetails(MethodView):
         body = request.json()
         funcionario = Funcionario.query.get_or_404(id)
 
-        nome = body.get('nome', funcionario.nome)
+        email = body.get('email', funcionario.email)
+        senha = body.get('senha', funcionario.senha)
         cargo = body.get('cargo', funcionario.cargo)
         cadastrado = body.get('cadastrado', funcionario.cadastrado)
 
-        if isinstance(nome, str) and \
-            isinstance(cargo, str) and \
-                isinstance(cadastrado, str):
-            funcionario.nome = nome
+        if isinstance(email, str) and \
+            isinstance(senha, str) and \
+                isinstance(cargo, str) and \
+                    isinstance(cadastrado, str):
+            funcionario.email = email
+            funcionario.senha = senha
             funcionario.cargo = cargo
             funcionario.cadastrado = cadastrado
 

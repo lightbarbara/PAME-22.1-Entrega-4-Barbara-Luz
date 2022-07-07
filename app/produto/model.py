@@ -5,14 +5,14 @@ class Produto(BaseModel):
     __tablename__ = 'produto'
 
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), unique=True)
-    preco = db.Column(db.Float)
+    nome = db.Column(db.String(100), unique=True, nullable=True)
+    preco = db.Column(db.Float, nullable=True)
     marca = db.Column(db.String(30))
     tipo = db.Column(db.String(30))
     demanda = db.Column(db.Integer)
-    quantidade = db.Column(db.Integer)
+    quantidade = db.Column(db.Integer, nullable=True)
 
-    # local = db.Column(db.Integer, db.ForeignKey('local.id'))
+    # local = db.Column(db.Integer, db.ForeignKey('loja.id'))
 
     def json(self):
         return {
