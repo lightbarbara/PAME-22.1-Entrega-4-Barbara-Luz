@@ -11,17 +11,19 @@ class EncomendaCreate(MethodView): # /registro
         categoria = body.get('categoria')
         data = body.get('data')
         realizada = body.get('realizada')
+        cliente = body.get('cliente')
 
         if isinstance(numero, int) and \
             isinstance(categoria, str) and \
                 isinstance(data, str) and \
-                    isinstance(realizada, str):
+                    isinstance(realizada, str) and \
+                        isinstance(cliente, int):
             encomenda = Encomenda.query.filter_by(numero=numero).first()
 
             if encomenda:
                 return {'code_status': 'Dados inválidos, encomenda já cadastrada'}, 400
             
-            encomenda = Encomenda(numero=numero, categoria=categoria, data=data, realizada=realizada)
+            encomenda = Encomenda(numero=numero, categoria=categoria, data=data, realizada=realizada, cliente=cliente)
             encomenda.save()
             return encomenda.json(), 200
     
@@ -42,15 +44,18 @@ class EncomendaDetails(MethodView):
         categoria = body.get('categoria')
         data = body.get('data')
         realizada = body.get('realizada')
+        cliente = body.get('cliente')
 
         if isinstance(numero, int) and \
             isinstance(categoria, str) and \
                 isinstance(data, str) and \
-                    isinstance(realizada, str):
+                    isinstance(realizada, str) and \
+                        isinstance(cliente, int):
             encomenda.numero = numero
             encomenda.categoria = categoria
             encomenda.data = data
             encomenda.realizada = realizada
+            encomenda.cliente = cliente
 
             encomenda.update()
 
@@ -67,15 +72,18 @@ class EncomendaDetails(MethodView):
         categoria = body.get('categoria', encomenda.categoria)
         data = body.get('data', encomenda.data)
         realizada = body.get('realizada', encomenda.realizada)
+        cliente = body.get('cliente', encomenda.cliente)
 
         if isinstance(numero, int) and \
             isinstance(categoria, str) and \
                 isinstance(data, str) and \
-                    isinstance(realizada, str):
+                    isinstance(realizada, str) and \
+                        isinstance(cliente, int):
             encomenda.numero = numero
             encomenda.categoria = categoria
             encomenda.data = data
             encomenda.realizada = realizada
+            encomenda.cliente = cliente
 
             encomenda.update()
 

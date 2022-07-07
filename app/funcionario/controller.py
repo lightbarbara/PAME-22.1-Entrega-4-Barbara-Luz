@@ -13,17 +13,19 @@ class FuncionarioCreate(MethodView): # /registro
         senha = bcrypt.hashpw(senha.encode(), bcrypt.gensalt()).decode()
         cargo = body.get('cargo')
         cadastrado = body.get('cadastrado')
+        loja = body.get('loja')
 
         if isinstance(email, str) and \
             isinstance(senha, str) and \
                 isinstance(cargo, str) and \
-                    isinstance(cadastrado, str):
+                    isinstance(cadastrado, str) and \
+                        isinstance(loja, int):
             funcionario = Funcionario.query.filter_by(email=email).first()
 
             if funcionario:
                 return {'code_status': 'Dados inválidos, funcionário já cadastrado'}, 400
             
-            funcionario = Funcionario(email=email, senha=senha, cargo=cargo, cadastrado=cadastrado)
+            funcionario = Funcionario(email=email, senha=senha, cargo=cargo, cadastrado=cadastrado, loja=loja)
             funcionario.save()
             return funcionario.json(), 200
     
@@ -44,15 +46,18 @@ class FuncionarioDetails(MethodView):
         senha = body.get('senha')
         cargo = body.get('cargo')
         cadastrado = body.get('cadastrado')
+        loja = body.get('loja')
 
         if isinstance(email, str) and \
             isinstance(senha, str) and \
                 isinstance(cargo, str) and \
-                    isinstance(cadastrado, str):
+                    isinstance(cadastrado, str) and \
+                        isinstance(loja, int):
             funcionario.email = email
             funcionario.senha = senha
             funcionario.cargo = cargo
             funcionario.cadastrado = cadastrado
+            funcionario.loja = loja
 
             funcionario.update()
 
@@ -69,15 +74,18 @@ class FuncionarioDetails(MethodView):
         senha = body.get('senha', funcionario.senha)
         cargo = body.get('cargo', funcionario.cargo)
         cadastrado = body.get('cadastrado', funcionario.cadastrado)
+        loja = body.get('loja', funcionario.loja)
 
         if isinstance(email, str) and \
             isinstance(senha, str) and \
                 isinstance(cargo, str) and \
-                    isinstance(cadastrado, str):
+                    isinstance(cadastrado, str) and \
+                        isinstance(loja, int):
             funcionario.email = email
             funcionario.senha = senha
             funcionario.cargo = cargo
             funcionario.cadastrado = cadastrado
+            funcionario.loja = loja
 
             funcionario.update()
 

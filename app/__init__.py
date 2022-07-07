@@ -1,6 +1,6 @@
 from flask import Flask
 from .config import Config
-from .extensions import db, migrate, mail
+from .extensions import db, migrate, mail, jwt
 from app.encomenda.routes import encomenda_api
 from app.funcionario.routes import funcionario_api
 from app.loja.routes import loja_api

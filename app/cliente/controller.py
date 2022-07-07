@@ -104,3 +104,9 @@ class Login(MethodView):
         senha = body.get('senha')
 
         cliente = Cliente.query.filter_by(email=email).first()
+
+        if not cliente:
+            return 400, {'code_status': 'Cliente não encontrado'}
+        
+        # if bcrypt.checkpw(senha.encode(), cliente.senha.encode()):
+            
