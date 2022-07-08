@@ -8,8 +8,8 @@ class Loja(BaseModel):
     espaco = db.Column(db.String(100), unique=True, nullable=False)
     area = db.Column(db.Float)
 
-    produtos = db.relationship('produto', backref='loja')
-    funcionarios = db.relationship('funcionario', backref='loja')
+    produtos = db.relationship('Produto', backref='loja')
+    funcionarios = db.relationship('Funcionario', backref='loja')
 
     def json(self):
         return {

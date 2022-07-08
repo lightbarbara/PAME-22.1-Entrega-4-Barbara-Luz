@@ -4,6 +4,7 @@ from flask.views import MethodView
 from flask_mail import Message
 from app.extensions import mail
 import bcrypt
+from flask_jwt_extended import create_access_token, verify_jwt_in_request, get_jwt_identity
 
 class ClienteCreate(MethodView): # /registro
     def post(self):
@@ -39,9 +40,13 @@ class ClienteCreate(MethodView): # /registro
         return jsonify([cliente.json() for cliente in clientes]), 200
     
 class ClienteDetails(MethodView):
+
     def get(self, id):
-        cliente = Cliente.query.get_or_404(id)
-        return cliente.json()
+        verify_jwt_in_request()
+        if id == get_jwt_identity():
+            cliente = Cliente.query.get_or_404(id)
+            return cliente.json()
+        return {'code_status': 'O id passado é inválido'}, 400
     
     def put(self, id):
         body = request.json()
@@ -105,8 +110,6 @@ class Login(MethodView):
 
         cliente = Cliente.query.filter_by(email=email).first()
 
-        if not cliente:
-            return 400, {'code_status': 'Cliente não encontrado'}
-        
-        # if bcrypt.checkpw(senha.encode(), cliente.senha.encode()):
-            
+        if cliente and bcrypt.checkpw(senha.encode(), cliente.senha.encode()):
+            return {'token': create_access_token(cliente.id)}, 200
+        return {'code_status': 'Email ou senha errados'}, 400

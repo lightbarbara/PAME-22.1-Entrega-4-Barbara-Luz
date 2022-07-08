@@ -2,6 +2,7 @@ from app.funcionario.model import Funcionario
 from flask import request, jsonify
 from flask.views import MethodView
 import bcrypt
+from flask_jwt_extended import create_access_token, verify_jwt_in_request, get_jwt_identity
 
 class FuncionarioCreate(MethodView): # /registro
     def post(self):
@@ -97,5 +98,16 @@ class FuncionarioDetails(MethodView):
 
         return funcionario.json()
 
-# class Login(MethodView):
+class Login(MethodView):
+    def post(self):
+        body = request.json
+
+        email = body.get('email')
+        senha = body.get('senha')
+
+        funcionario = Funcionario.query.filter_by(email=email).first()
+
+        if funcionario and bcrypt.checkpw(senha.encode(), funcionario.senha.encode()):
+            return {'token': create_access_token(funcionario.id, additional_claims={'usuario': 'logado'})}, 200
+        return {'code_status': 'Email ou senha errados'}, 400
     
