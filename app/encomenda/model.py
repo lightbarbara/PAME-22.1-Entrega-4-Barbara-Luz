@@ -11,7 +11,7 @@ class Encomenda(BaseModel):
     realizada = db.Column(db.String(1), nullable=False)
 
     cliente = db.Column(db.Integer, db.ForeignKey('cliente.id'))
-    produto = db.relationship('Produto', secondary='encomendas_e_produtos', backref='produtos_das_entregas')
+    produtos = db.relationship('Produto', secondary='encomendas_e_produtos', backref='produtos_das_entregas')
 
     def json(self):
         return {
@@ -26,5 +26,5 @@ class EncomendasEProdutos(BaseModel):
     __tablename__ = 'encomendas_e_produtos'
     
     id = db.Column(db.Integer, primary_key=True)
-    encomenda = db.Column(db.Integer, db.ForeignKey('encomenda.id'))
-    produto = db.Column(db.Integer, db.ForeignKey('produto.id'))
+    encomenda_produto = db.Column(db.Integer, db.ForeignKey('encomenda.id'))
+    produto_encomenda = db.Column(db.Integer, db.ForeignKey('produto.id'))

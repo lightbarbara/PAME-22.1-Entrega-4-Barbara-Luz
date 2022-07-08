@@ -10,7 +10,7 @@ class Cliente(BaseModel):
     senha = db.Column(db.String(100), nullable=False)
     endereco = db.Column(db.String(100), nullable=False)
 
-    encomenda = db.relationship('Encomenda', backref='cliente')
+    encomenda_cliente = db.relationship('Encomenda', backref='clientes')
 
     def json(self):
         return {

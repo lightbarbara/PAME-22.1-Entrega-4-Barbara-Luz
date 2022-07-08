@@ -10,7 +10,7 @@ class Funcionario(BaseModel):
     cargo = db.Column(db.String(30), nullable=False)
     cadastrado = db.Column(db.String(1), nullable=False)
 
-    loja = db.Column(db.Integer, db.ForeignKey('loja.id'))
+    loja_funcionario = db.Column(db.Integer, db.ForeignKey('loja.id'))
 
     def json(self):
         return {

@@ -12,7 +12,7 @@ class Produto(BaseModel):
     demanda = db.Column(db.Integer)
     quantidade = db.Column(db.Integer, nullable=False)
 
-    loja = db.Column(db.Integer, db.ForeignKey('loja.id'))
+    loja_produto = db.Column(db.Integer, db.ForeignKey('loja.id'))
 
     def json(self):
         return {

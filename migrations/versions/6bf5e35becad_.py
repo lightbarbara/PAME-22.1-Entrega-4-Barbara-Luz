@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 00767fa8d3b6
+Revision ID: 6bf5e35becad
 Revises: 
-Create Date: 2022-07-07 21:13:34.827031
+Create Date: 2022-07-07 22:17:29.979460
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '00767fa8d3b6'
+revision = '6bf5e35becad'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -51,8 +51,8 @@ def upgrade():
     sa.Column('senha', sa.String(length=100), nullable=False),
     sa.Column('cargo', sa.String(length=30), nullable=False),
     sa.Column('cadastrado', sa.String(length=1), nullable=False),
-    sa.Column('loja', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['loja'], ['loja.id'], ),
+    sa.Column('loja_funcionario', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['loja_funcionario'], ['loja.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
@@ -64,17 +64,17 @@ def upgrade():
     sa.Column('tipo', sa.String(length=30), nullable=True),
     sa.Column('demanda', sa.Integer(), nullable=True),
     sa.Column('quantidade', sa.Integer(), nullable=False),
-    sa.Column('loja', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['loja'], ['loja.id'], ),
+    sa.Column('loja_produto', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['loja_produto'], ['loja.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('nome')
     )
     op.create_table('encomendas_e_produtos',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('encomenda', sa.Integer(), nullable=True),
-    sa.Column('produto', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['encomenda'], ['encomenda.id'], ),
-    sa.ForeignKeyConstraint(['produto'], ['produto.id'], ),
+    sa.Column('encomenda_produto', sa.Integer(), nullable=True),
+    sa.Column('produto_encomenda', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['encomenda_produto'], ['encomenda.id'], ),
+    sa.ForeignKeyConstraint(['produto_encomenda'], ['produto.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
