@@ -7,17 +7,17 @@ class LojaCreate(MethodView): # /registro
         body = request.json # pegando do front
 
         id = body.get('id')
-        espaco = body.get('espaco')
-        area = body.get('area')
+        local = body.get('local')
+        area_estoque = body.get('area_estoque')
 
-        if isinstance(espaco, str) and \
-            isinstance(area, float):
-            loja = Loja.query.filter_by(espaco=espaco).first()
+        if isinstance(local, str) and \
+            isinstance(area_estoque, float):
+            loja = Loja.query.filter_by(local=local).first()
 
             if loja:
                 return {'code_status': 'Dados inválidos, loja já cadastrada'}, 400
             
-            loja = Loja(espaco=espaco, area=area)
+            loja = Loja(local=local, area_estoque=area_estoque)
             loja.save()
             return loja.json(), 200
     
@@ -34,13 +34,13 @@ class LojaDetails(MethodView):
         body = request.json()
         loja = Loja.query.get_or_404(id)
 
-        espaco = body.get('espaco')
-        area = body.get('area')
+        local = body.get('local')
+        area_estoque = body.get('area_estoque')
 
-        if isinstance(espaco, str) and \
-            isinstance(area, float):
-            loja.espaco = espaco
-            loja.area = area
+        if isinstance(local, str) and \
+            isinstance(area_estoque, float):
+            loja.local = local
+            loja.area_estoque = area_estoque
 
             loja.update()
 
@@ -53,13 +53,13 @@ class LojaDetails(MethodView):
         body = request.json()
         loja = Loja.query.get_or_404(id)
 
-        espaco = body.get('espaco', loja.espaco)
-        area = body.get('area', loja.area)
+        local = body.get('local', loja.local)
+        area_estoque = body.get('area_estoque', loja.area_estoque)
 
-        if isinstance(espaco, str) and \
-            isinstance(area, float):
-            loja.espaco = espaco
-            loja.area = area
+        if isinstance(local, str) and \
+            isinstance(area_estoque, float):
+            loja.local = local
+            loja.area_estoque = area_estoque
             
             loja.update()
 

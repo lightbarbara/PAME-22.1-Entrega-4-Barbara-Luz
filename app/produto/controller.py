@@ -13,7 +13,7 @@ class ProdutoCreate(MethodView): # /registro
         tipo = body.get('tipo')
         demanda = body.get('demanda')
         quantidade = body.get('quantidade')
-        loja = body.get('loja')
+        loja_produto = body.get('loja_produto')
 
         if isinstance(nome, str) and \
             isinstance(preco, float) and \
@@ -21,13 +21,13 @@ class ProdutoCreate(MethodView): # /registro
                     isinstance(tipo, str) and \
                         isinstance(demanda, int) and \
                             isinstance(quantidade, int) and \
-                                isinstance(loja, int):
+                                isinstance(loja_produto, int):
             produto = Produto.query.filter_by(nome=nome).first()
 
             if produto:
                 return {'code_status': 'Dados inválidos, produto já cadastrado'}, 400
             
-            produto = Produto(nome=nome, preco=preco, marca=marca, tipo=tipo, demanda=demanda, quantidade=quantidade, loja=loja)
+            produto = Produto(nome=nome, preco=preco, marca=marca, tipo=tipo, demanda=demanda, quantidade=quantidade, loja_produto=loja_produto)
             produto.save()
             return produto.json(), 200
     
@@ -50,7 +50,7 @@ class ProdutoDetails(MethodView):
         tipo = body.get('tipo')
         demanda = body.get('demanda')
         quantidade = body.get('quantidade')
-        loja = body.get('loja')
+        loja_produto = body.get('loja_produto')
 
         if isinstance(nome, str) and \
             isinstance(preco, float) and \
@@ -58,14 +58,14 @@ class ProdutoDetails(MethodView):
                     isinstance(tipo, str) and \
                         isinstance(demanda, int) and \
                             isinstance(quantidade, int) and \
-                                isinstance(loja, int):
+                                isinstance(loja_produto, int):
             produto.nome = nome
             produto.preco = preco
             produto.marca = marca
             produto.tipo = tipo
             produto.demanda = demanda
             produto.quantidade = quantidade
-            produto.loja = loja
+            produto.loja_produto = loja_produto
 
             produto.update()
 
@@ -84,7 +84,7 @@ class ProdutoDetails(MethodView):
         tipo = body.get('tipo', produto.tipo)
         demanda = body.get('demanda', produto.demanda)
         quantidade = body.get('quantidade', produto.quantidade)
-        loja = body.get('loja', produto.loja)
+        loja_produto = body.get('loja_produto', produto.loja_produto)
 
         if isinstance(nome, str) and \
             isinstance(preco, float) and \
@@ -92,14 +92,14 @@ class ProdutoDetails(MethodView):
                     isinstance(tipo, str) and \
                         isinstance(demanda, int) and \
                             isinstance(quantidade, int) and \
-                                isinstance(loja, int):
+                                isinstance(loja_produto, int):
             produto.nome = nome
             produto.preco = preco
             produto.marca = marca
             produto.tipo = tipo
             produto.demanda = demanda
             produto.quantidade = quantidade
-            produto.loja = loja
+            produto.loja_produto = loja_produto
 
             produto.update()
 

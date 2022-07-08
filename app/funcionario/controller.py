@@ -14,19 +14,19 @@ class FuncionarioCreate(MethodView): # /registro
         senha = bcrypt.hashpw(senha.encode(), bcrypt.gensalt()).decode()
         cargo = body.get('cargo')
         cadastrado = body.get('cadastrado')
-        loja = body.get('loja')
+        loja_funcionario = body.get('loja_funcionario')
 
         if isinstance(email, str) and \
             isinstance(senha, str) and \
                 isinstance(cargo, str) and \
                     isinstance(cadastrado, str) and \
-                        isinstance(loja, int):
+                        isinstance(loja_funcionario, int):
             funcionario = Funcionario.query.filter_by(email=email).first()
 
             if funcionario:
                 return {'code_status': 'Dados inválidos, funcionário já cadastrado'}, 400
             
-            funcionario = Funcionario(email=email, senha=senha, cargo=cargo, cadastrado=cadastrado, loja=loja)
+            funcionario = Funcionario(email=email, senha=senha, cargo=cargo, cadastrado=cadastrado, loja_funcionario=loja_funcionario)
             funcionario.save()
             return funcionario.json(), 200
     
@@ -47,18 +47,18 @@ class FuncionarioDetails(MethodView):
         senha = body.get('senha')
         cargo = body.get('cargo')
         cadastrado = body.get('cadastrado')
-        loja = body.get('loja')
+        loja_funcionario = body.get('loja_funcionario')
 
         if isinstance(email, str) and \
             isinstance(senha, str) and \
                 isinstance(cargo, str) and \
                     isinstance(cadastrado, str) and \
-                        isinstance(loja, int):
+                        isinstance(loja_funcionario, int):
             funcionario.email = email
             funcionario.senha = senha
             funcionario.cargo = cargo
             funcionario.cadastrado = cadastrado
-            funcionario.loja = loja
+            funcionario.loja_funcionario = loja_funcionario
 
             funcionario.update()
 
@@ -75,18 +75,18 @@ class FuncionarioDetails(MethodView):
         senha = body.get('senha', funcionario.senha)
         cargo = body.get('cargo', funcionario.cargo)
         cadastrado = body.get('cadastrado', funcionario.cadastrado)
-        loja = body.get('loja', funcionario.loja)
+        loja_funcionario = body.get('loja_funcionario', funcionario.loja_funcionario)
 
         if isinstance(email, str) and \
             isinstance(senha, str) and \
                 isinstance(cargo, str) and \
                     isinstance(cadastrado, str) and \
-                        isinstance(loja, int):
+                        isinstance(loja_funcionario, int):
             funcionario.email = email
             funcionario.senha = senha
             funcionario.cargo = cargo
             funcionario.cadastrado = cadastrado
-            funcionario.loja = loja
+            funcionario.loja_funcionario = loja_funcionario
 
             funcionario.update()
 

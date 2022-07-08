@@ -22,5 +22,5 @@ class Produto(BaseModel):
             'marca': self.marca,
             'demanda': self.demanda,
             'quantidade': self.quantidade,
-            'loja': self.loja
+            'loja_produto': self.loja_produto
         }
